@@ -1,14 +1,10 @@
-# 🚀 Jenkins DevSecOps Pipeline Orchestrator
-
 <div align="center">
 
-# 🛡️ Security by Design
+# 🛡️ Jenkins DevSecOps Pipeline Orchestrator
 
-### Pipeline Declarativo DevSecOps con Security Gates Automatizados
+### Security by Design • Fail Fast • Fail Secure
 
-<p align="center">
-Integrando seguridad desde el primer commit hasta la publicación de resultados.
-</p>
+Pipeline declarativo construido sobre Jenkins que integra **SCA, SAST, DAST y Security Gates automatizados** para detener vulnerabilidades antes de que lleguen a producción.
 
 <br>
 
@@ -22,85 +18,93 @@ Integrando seguridad desde el primer commit hasta la publicación de resultados.
 
 ---
 
-## 🎯 ¿Qué es este proyecto?
+## 🎯 Acerca del Proyecto
 
-Este repositorio implementa un pipeline **DevSecOps completo** donde la seguridad se convierte en un criterio obligatorio antes de avanzar a las siguientes etapas del ciclo de integración continua.
+Este proyecto implementa una estrategia moderna de **DevSecOps**, donde la seguridad deja de ser una actividad posterior al desarrollo y se convierte en un requisito obligatorio dentro del pipeline de integración continua.
 
-La filosofía aplicada es:
+Cada commit es validado mediante múltiples capas de seguridad antes de permitir que el flujo continúe.
 
-> **Fail Fast • Fail Secure**
-
-Si se detectan vulnerabilidades críticas o de alto riesgo, el pipeline se detiene automáticamente evitando consumir recursos innecesarios y reduciendo el riesgo de despliegues inseguros.
+> **Objetivo:** detectar riesgos lo antes posible para reducir costos, evitar despliegues inseguros y optimizar el uso de recursos.
 
 ---
 
 ## ✨ Características Principales
 
-* 🔍 Escaneo de dependencias (SCA)
-* 🛡️ Análisis estático de seguridad (SAST)
-* 🚦 Security Gate automatizado
-* 🌐 Escaneo dinámico (DAST)
-* 📊 Publicación automática de reportes
-* 🐳 Ejecución totalmente contenedorizada
-* ⚡ Detección temprana de riesgos
+✅ Escaneo de dependencias vulnerables (SCA)
+
+✅ Análisis estático de seguridad (SAST)
+
+✅ Security Gate automatizado basado en severidad
+
+✅ Escaneo dinámico de aplicaciones (DAST)
+
+✅ Publicación automática de reportes
+
+✅ Pipeline completamente dockerizado
+
+✅ Automatización de pruebas E2E
+
+✅ Filosofía *Fail Fast, Fail Secure*
 
 ---
 
-## 📊 Métricas del Pipeline
+# 📊 Métricas del Pipeline
 
-| Indicador             | Valor           |
-| --------------------- | --------------- |
-| ⏱ Tiempo Promedio     | 4.5 min         |
-| 🛡 Capas de Seguridad | 3               |
-| 🚫 Bloqueo Automático | HIGH + CRITICAL |
-| 🐳 Entorno            | Docker          |
-| 📈 Tipo de Pipeline   | Declarativo     |
+| Indicador                      | Valor           |
+| ------------------------------ | --------------- |
+| ⏱ Tiempo promedio de ejecución | ~4.5 min        |
+| 🛡 Capas de seguridad          | 3               |
+| 🚦 Security Gate               | HIGH + CRITICAL |
+| 🐳 Entorno                     | Docker          |
+| 🔄 Tipo de Pipeline            | Declarativo     |
+| 📋 Reportes                    | Automatizados   |
 
 ---
 
-# 🏛️ Arquitectura General
+# 🏗️ Arquitectura General
 
 ```mermaid
 graph LR
 
 A[📦 Checkout SCM]
---> B[🔍 SCA<br>npm audit]
+--> B[🔍 SCA<br/>npm audit]
 
-B --> C[🛡️ SAST<br>Trivy]
+B --> C[🛡️ SAST<br/>Trivy]
 
 C --> D{🚦 Security Gate}
 
-D -->|✅ Aprobado| E[📥 Clonar Cypress Suite]
+D -->|✅ Aprobado| E[📥 Clonar Suite Cypress]
 
 D -->|❌ Rechazado| F[⛔ Pipeline Abortado]
 
-E --> G[🌐 DAST<br>OWASP ZAP]
+E --> G[🌐 DAST<br/>OWASP ZAP]
 
-G --> H[📊 Reportes]
+G --> H[📊 Publicar Reportes]
 
-H --> I[✅ Success]
+H --> I[✅ Build Exitosa]
 ```
 
 ---
 
 # 🔄 Flujo DevSecOps
 
-| Etapa           | Herramienta | Objetivo                       |
-| --------------- | ----------- | ------------------------------ |
-| SCA             | npm audit   | Dependencias vulnerables       |
-| SAST            | Trivy       | Análisis de código             |
-| Security Gate   | Groovy      | Evaluación de riesgos          |
-| E2E Preparation | Git Clone   | Obtención de pruebas           |
-| DAST            | OWASP ZAP   | Pruebas de seguridad dinámicas |
-| Reporting       | Jenkins     | Publicación de resultados      |
+| Etapa         | Herramienta | Objetivo                          | Resultado             |
+| ------------- | ----------- | --------------------------------- | --------------------- |
+| Checkout      | Git         | Obtener código fuente             | Workspace             |
+| SCA           | npm audit   | Detectar dependencias vulnerables | Consola               |
+| SAST          | Trivy       | Análisis estático de seguridad    | trivy-report.json     |
+| Security Gate | Groovy      | Evaluar riesgo                    | Continuar o detener   |
+| E2E Setup     | Git Clone   | Obtener suite de pruebas          | Workspace actualizado |
+| DAST          | OWASP ZAP   | Simulación de ataques             | zap-report.html       |
+| Reporting     | Jenkins     | Consolidar resultados             | Dashboard             |
 
 ---
 
 # 🚦 Security Gate
 
-El componente más importante del pipeline.
+El corazón del pipeline.
 
-Analiza el reporte generado por Trivy y toma decisiones automáticas según la severidad encontrada.
+Esta etapa analiza automáticamente el reporte generado por Trivy y toma decisiones basadas en la severidad encontrada.
 
 ```groovy
 def vulnerabilities = readJSON file: 'trivy-report.json'
@@ -116,98 +120,127 @@ if (criticalCount > 0) {
 }
 ```
 
-## Reglas Aplicadas
+## Política de Seguridad
 
-| Severidad   | Acción      |
-| ----------- | ----------- |
-| 🔴 CRITICAL | Bloquear    |
-| 🟠 HIGH     | Bloquear    |
-| 🟡 MEDIUM   | Advertencia |
-| 🔵 LOW      | Permitir    |
+| Severidad   | Acción            |
+| ----------- | ----------------- |
+| 🔴 CRITICAL | Bloquear Pipeline |
+| 🟠 HIGH     | Bloquear Pipeline |
+| 🟡 MEDIUM   | Advertencia       |
+| 🔵 LOW      | Permitir          |
 
 ---
 
-# 📸 Evidencias Reales
+# 📸 Evidencias
 
 ## ✅ Pipeline Exitoso
 
+### Stage View
+
 <p align="center">
-
 <img src="./images/stage-view-success.png" width="900">
+</p>
 
-<br><br>
+### Security Gate
 
+<p align="center">
 <img src="./images/security-gate-log.png" width="900">
+</p>
 
-<br><br>
+### OWASP ZAP Report
 
+<p align="center">
 <img src="./images/zap-report.png" width="900">
-
 </p>
 
 ---
 
 ## ❌ Pipeline Bloqueado
 
+### Vulnerabilidades detectadas
+
 <p align="center">
-
 <img src="./images/stage-view-failed.png" width="900">
-
 </p>
 
 ### Resultado
 
-El Security Gate detectó vulnerabilidades críticas y evitó:
+El pipeline fue detenido automáticamente antes de ejecutar etapas posteriores.
 
-* Ejecución innecesaria de DAST
-* Consumo de recursos
-* Falsos despliegues exitosos
-* Riesgos de seguridad en producción
+Esto evita:
+
+* Consumo innecesario de recursos
+* Ejecución de pruebas sobre código inseguro
+* Reportes irrelevantes
+* Posibles despliegues vulnerables
 
 ---
 
-# ⚙️ Instalación
+# 🛠️ Stack Tecnológico
 
-## Requisitos
+| Categoría            | Tecnología |
+| -------------------- | ---------- |
+| CI/CD                | Jenkins    |
+| Contenedores         | Docker     |
+| Control de versiones | Git        |
+| SCA                  | npm audit  |
+| SAST                 | Trivy      |
+| DAST                 | OWASP ZAP  |
+| Automatización E2E   | Cypress    |
+| Lenguaje Pipeline    | Groovy     |
+
+---
+
+# ⚙️ Requisitos
 
 ```yaml
 Docker: 24+
 Jenkins: LTS
-RAM: 4 GB mínimo
-CPU: 2 vCPU
+
+RAM mínima:
+  - 4 GB
+
+CPU mínima:
+  - 2 vCPU
 ```
 
 ---
 
-## Plugins Jenkins
+# 🚀 Instalación Rápida
 
-| Plugin                 |
-| ---------------------- |
-| Pipeline Utility Steps |
-| Docker Pipeline        |
-| Git Plugin             |
-
----
-
-## Ejecución
+## 1️⃣ Levantar Jenkins
 
 ```bash
-# Levantar Jenkins
-
 docker-compose up -d
+```
 
-# Instalar plugins
+## 2️⃣ Instalar Plugins
 
-# Crear Pipeline desde SCM
+* Pipeline Utility Steps
+* Docker Pipeline
+* Git Plugin
 
-# Ejecutar Build Now
+## 3️⃣ Crear Pipeline
+
+```text
+New Item
+ → Pipeline
+ → Pipeline Script from SCM
+ → Seleccionar este repositorio
+ → Branch: main
+```
+
+## 4️⃣ Ejecutar
+
+```text
+Build Now
 ```
 
 ---
 
-# 🌎 Ecosistema del Proyecto
+# 🌐 Ecosistema del Proyecto
 
-Este repositorio forma parte de una solución más amplia.
+Este repositorio forma parte de una solución distribuida orientada a automatización y calidad de software.
 
 | Repositorio                | Función               |
 | -------------------------- | --------------------- |
@@ -216,21 +249,22 @@ Este repositorio forma parte de una solución más amplia.
 
 ### Integración Dinámica
 
-Durante la ejecución, Jenkins clona automáticamente la suite E2E para garantizar que siempre se utilicen las pruebas más recientes.
+Durante la ejecución del pipeline se clona automáticamente la suite E2E para garantizar que siempre se utilice la versión más reciente de las pruebas.
 
 ---
 
-# 🚀 Roadmap
+# 📈 Roadmap
 
 ## Próximas Mejoras
 
 * [ ] Integración con SonarQube
-* [ ] Escaneo de secretos (Gitleaks)
 * [ ] Integración con Slack
 * [ ] Integración con Microsoft Teams
-* [ ] Almacenamiento de reportes en S3
-* [ ] Pipeline parametrizado
+* [ ] Escaneo de secretos con Gitleaks
+* [ ] Publicación de reportes en S3
 * [ ] Multibranch Pipelines
+* [ ] Caché de dependencias
+* [ ] Pipeline parametrizado
 
 ---
 
@@ -238,32 +272,31 @@ Durante la ejecución, Jenkins clona automáticamente la suite E2E para garantiz
 
 Las contribuciones son bienvenidas.
 
-Si encuentras oportunidades de mejora, abre un Pull Request o un Issue.
+Si encuentras una mejora o deseas colaborar:
+
+1. Fork del proyecto
+2. Crear rama de trabajo
+3. Commit de cambios
+4. Pull Request
 
 ---
 
 # 📄 Licencia
 
-MIT License
+Distribuido bajo licencia MIT.
+
+Consulta el archivo **LICENSE** para más información.
 
 ---
+
+<div align="center">
 
 # 👨‍💻 Autor
 
-<div align="center">
+### Danielito2252
 
-## Herberth Daniel Barrios
+**DevOps Engineer Student • DevSecOps Practitioner**
 
-DevOps Engineer Student • DevSecOps Practitioner
-
-![GitHub](https://img.shields.io/badge/GitHub-Danielito2252-181717?style=for-the-badge\&logo=github)
-
-</div>
-
----
-
-<div align="center">
-
-### 💡 "El mejor código es el que nunca llega a producción con vulnerabilidades críticas."
+*"El mejor código es el que nunca llega a producción con vulnerabilidades críticas."*
 
 </div>
