@@ -52,7 +52,7 @@ pipeline {
                                         "PkgName": "express",
                                         "InstalledVersion": "4.17.1",
                                         "FixedVersion": "4.17.2",
-                                        "Severity": "CRITICAL", // Aquí simulamos una vulnerabilidad crítica realista para tu rúbrica
+                                        "Severity": "CRITICAL", // Aquí simulamos una vulnerabilidad crítica realista 
                                         "Title": "Remote Code Execution (RCE) via malicious payload"
                                     }
                                 ]
