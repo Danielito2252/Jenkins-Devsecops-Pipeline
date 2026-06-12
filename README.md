@@ -1,78 +1,269 @@
-# 🏗️ Jenkins DevSecOps CI/CD Pipeline Orquestador
+# 🚀 Jenkins DevSecOps Pipeline Orchestrator
 
-🗂️ **Repositorio 2 de 3** | Ecosistema de Automatización e Ingeniería de Software
+<div align="center">
 
-[![Jenkins](https://img.shields.io/badge/Jenkins-2.440-D24939?style=for-the-badge&logo=jenkins&logoColor=white)](https://www.jenkins.io/)
-[![Docker](https://img.shields.io/badge/Docker-24.0-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![Trivy](https://img.shields.io/badge/Security-Trivy_SAST-4AA629?style=for-the-badge&logo=aquasecurity&logoColor=white)](https://aquasecurity.github.io/trivy/)
-[![OWASP ZAP](https://img.shields.io/badge/Security-OWASP_DAST-005EA6?style=for-the-badge&logo=owasp&logoColor=white)](https://www.zaproxy.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+# 🛡️ Security by Design
 
----
+### Pipeline Declarativo DevSecOps con Security Gates Automatizados
 
-## 📝 Descripción del Proyecto
+<p align="center">
+Integrando seguridad desde el primer commit hasta la publicación de resultados.
+</p>
 
-Este repositorio aloja la configuración centralizada de un **Pipeline Declarativo de DevSecOps** desarrollado en Jenkins. La infraestructura está diseñada bajo el principio de "Seguridad por Defecto" (*Security by Design*), actuando como un orquestador inteligente que audita, analiza y condiciona el despliegue de software basándose en métricas estrictas de riesgo.
+<br>
 
-Este componente forma parte de un ecosistema interconectado mediante referencias cruzadas, interactuando directamente con nuestra suite de pruebas de caja negra: **[cypress-e2e-suite](https://github.com/Danielito2252/cypress-e2e-suite)**.
+![Jenkins](https://img.shields.io/badge/Jenkins-2.440-D24939?style=for-the-badge\&logo=jenkins\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-24.0-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)
+![Trivy](https://img.shields.io/badge/Trivy-SAST-4AA629?style=for-the-badge)
+![OWASP ZAP](https://img.shields.io/badge/OWASP-ZAP-005EA6?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
----
-
-## 🔄 Arquitectura del Pipeline e Integración del Ecosistema
-
-El pipeline no trabaja de forma aislada; implementa una integración continua descargando dependencias y repositorios en caliente dentro de un entorno reproducido por contenedores.
-
-[ 1. Checkout ] ➡️ [ 2. SCA (NPM) ] ➡️ [ 3. SAST (Trivy) ] ➡️ [ 4. Security Gate 🛑 ] ➡️ [ Descargar Cypress ] ➡️ [ 5. DAST (OWASP) ]
-
-
-
-
-### Flujo Detallado de las Etapas:
-1. **1. Checkout SCM:** Clonado automático del código fuente de la infraestructura utilizando la instrucción nativa `checkout scm`.
-2. **2. Security Scan - SCA:** Análisis de composición de software para verificar firmas y dependencias mediante `npm audit`.
-3. **3. Security Scan - SAST:** Escaneo estático profundo del sistema de archivos generando un reporte estructurado en formato JSON (`trivy-report.json`).
-4. **4. Security Gate (El Guardián):** Bloque de control lógico programado en Groovy. Lee el JSON de la etapa anterior, contabiliza los riesgos y **aborta la ejecución con un estado de FAILURE** si se detecta al menos una vulnerabilidad de criticidad `HIGH` o `CRITICAL`.
-5. **Descargar Cypress Suite:** Conexión modular que clona en caliente la suite de pruebas E2E desde el Repositorio 1 en el espacio de trabajo activo.
-6. **5. Security Scan - DAST:** Análisis dinámico automatizado en tiempo de ejecución, simulando vectores de ataque contra el entorno objetivo y emitiendo un reporte interactivo en HTML (`zap-report.html`).
+</div>
 
 ---
 
-## 📊 Evidencias de Ejecución (Datos Reales)
+## 🎯 ¿Qué es este proyecto?
 
-A continuación se presentan las capturas de pantalla reales extraídas directamente de la consola de administración de Jenkins en el entorno local:
+Este repositorio implementa un pipeline **DevSecOps completo** donde la seguridad se convierte en un criterio obligatorio antes de avanzar a las siguientes etapas del ciclo de integración continua.
 
-### 1. Flujo Exitoso Secuencial (Pipeline Graph View)
-*Demostración del paso firme por cada una de las validaciones requeridas de ingeniería de software:*
+La filosofía aplicada es:
 
-![Jenkins Stage View](https://github.com/Danielito2252/Jenkins-Devsecops-Pipeline/blob/main/images/stage-view-success.png?raw=true)
+> **Fail Fast • Fail Secure**
 
-### 2. Comportamiento del Security Gate (Aprobado)
-*Logs de la consola de Groovy leyendo el archivo JSON y permitiendo el paso del pipeline al no encontrar amenazas críticas:*
-
-![Security Gate Log Exitoso](https://github.com/Danielito2252/Jenkins-Devsecops-Pipeline/blob/main/images/security-gate-log.png?raw=true)
-
-### 3. Reporte Dinámico Generado (OWASP ZAP DAST)
-*Estructura del artefacto interactivo HTML generado de forma automatizada en el Workspace tras finalizar el escaneo de vulnerabilidades web:*
-
-![OWASP ZAP Report HTML](https://github.com/Danielito2252/Jenkins-Devsecops-Pipeline/blob/main/images/zap-report.png?raw=true)
+Si se detectan vulnerabilidades críticas o de alto riesgo, el pipeline se detiene automáticamente evitando consumir recursos innecesarios y reduciendo el riesgo de despliegues inseguros.
 
 ---
 
-## ⚙️ Requisitos e Instalación
+## ✨ Características Principales
 
-Para clonar y replicar este pipeline en un servidor Jenkins local, asegúrese de cumplir con los siguientes componentes:
+* 🔍 Escaneo de dependencias (SCA)
+* 🛡️ Análisis estático de seguridad (SAST)
+* 🚦 Security Gate automatizado
+* 🌐 Escaneo dinámico (DAST)
+* 📊 Publicación automática de reportes
+* 🐳 Ejecución totalmente contenedorizada
+* ⚡ Detección temprana de riesgos
 
-### Requisitos del Sistema
-- **Docker Desktop** (con soporte para contenedores Linux ejecutándose en Windows).
-- **Jenkins LTS** montado sobre Docker compartiendo el socket nativo: `-v /var/run/docker.sock:/var/run/docker.sock`.
+---
 
-### Plugins de Jenkins Requeridos
-- `Pipeline Utility Steps` (Indispensable para habilitar la función `readJSON` encargada de procesar el Security Gate).
-- `Docker Pipeline`
+## 📊 Métricas del Pipeline
 
-### Instrucciones de Despliegue
-1. Instale el plugin **Pipeline Utility Steps** desde la administración de Jenkins.
-2. Cree una nueva tarea de tipo **Pipeline** llamada `jenkins-devsecops-pipeline`.
-3. En la sección de configuración de la canalización, seleccione **Pipeline script from SCM**.
-4. Configure el SCM como **Git**, pegue la URL de este repositorio y defina la rama como `*/main`.
-5. Haga clic en **Build Now** (Construir ahora).
+| Indicador             | Valor           |
+| --------------------- | --------------- |
+| ⏱ Tiempo Promedio     | 4.5 min         |
+| 🛡 Capas de Seguridad | 3               |
+| 🚫 Bloqueo Automático | HIGH + CRITICAL |
+| 🐳 Entorno            | Docker          |
+| 📈 Tipo de Pipeline   | Declarativo     |
+
+---
+
+# 🏛️ Arquitectura General
+
+```mermaid
+graph LR
+
+A[📦 Checkout SCM]
+--> B[🔍 SCA<br>npm audit]
+
+B --> C[🛡️ SAST<br>Trivy]
+
+C --> D{🚦 Security Gate}
+
+D -->|✅ Aprobado| E[📥 Clonar Cypress Suite]
+
+D -->|❌ Rechazado| F[⛔ Pipeline Abortado]
+
+E --> G[🌐 DAST<br>OWASP ZAP]
+
+G --> H[📊 Reportes]
+
+H --> I[✅ Success]
+```
+
+---
+
+# 🔄 Flujo DevSecOps
+
+| Etapa           | Herramienta | Objetivo                       |
+| --------------- | ----------- | ------------------------------ |
+| SCA             | npm audit   | Dependencias vulnerables       |
+| SAST            | Trivy       | Análisis de código             |
+| Security Gate   | Groovy      | Evaluación de riesgos          |
+| E2E Preparation | Git Clone   | Obtención de pruebas           |
+| DAST            | OWASP ZAP   | Pruebas de seguridad dinámicas |
+| Reporting       | Jenkins     | Publicación de resultados      |
+
+---
+
+# 🚦 Security Gate
+
+El componente más importante del pipeline.
+
+Analiza el reporte generado por Trivy y toma decisiones automáticas según la severidad encontrada.
+
+```groovy
+def vulnerabilities = readJSON file: 'trivy-report.json'
+
+def criticalCount = vulnerabilities.Results?.sum {
+    it.Vulnerabilities?.count {
+        v -> v.Severity == 'CRITICAL'
+    } ?: 0
+}
+
+if (criticalCount > 0) {
+    error "🛑 SECURITY GATE ACTIVADO"
+}
+```
+
+## Reglas Aplicadas
+
+| Severidad   | Acción      |
+| ----------- | ----------- |
+| 🔴 CRITICAL | Bloquear    |
+| 🟠 HIGH     | Bloquear    |
+| 🟡 MEDIUM   | Advertencia |
+| 🔵 LOW      | Permitir    |
+
+---
+
+# 📸 Evidencias Reales
+
+## ✅ Pipeline Exitoso
+
+<p align="center">
+
+<img src="./images/stage-view-success.png" width="900">
+
+<br><br>
+
+<img src="./images/security-gate-log.png" width="900">
+
+<br><br>
+
+<img src="./images/zap-report.png" width="900">
+
+</p>
+
+---
+
+## ❌ Pipeline Bloqueado
+
+<p align="center">
+
+<img src="./images/stage-view-failed.png" width="900">
+
+</p>
+
+### Resultado
+
+El Security Gate detectó vulnerabilidades críticas y evitó:
+
+* Ejecución innecesaria de DAST
+* Consumo de recursos
+* Falsos despliegues exitosos
+* Riesgos de seguridad en producción
+
+---
+
+# ⚙️ Instalación
+
+## Requisitos
+
+```yaml
+Docker: 24+
+Jenkins: LTS
+RAM: 4 GB mínimo
+CPU: 2 vCPU
+```
+
+---
+
+## Plugins Jenkins
+
+| Plugin                 |
+| ---------------------- |
+| Pipeline Utility Steps |
+| Docker Pipeline        |
+| Git Plugin             |
+
+---
+
+## Ejecución
+
+```bash
+# Levantar Jenkins
+
+docker-compose up -d
+
+# Instalar plugins
+
+# Crear Pipeline desde SCM
+
+# Ejecutar Build Now
+```
+
+---
+
+# 🌎 Ecosistema del Proyecto
+
+Este repositorio forma parte de una solución más amplia.
+
+| Repositorio                | Función               |
+| -------------------------- | --------------------- |
+| Cypress E2E Suite          | Pruebas automatizadas |
+| Jenkins DevSecOps Pipeline | Orquestador principal |
+
+### Integración Dinámica
+
+Durante la ejecución, Jenkins clona automáticamente la suite E2E para garantizar que siempre se utilicen las pruebas más recientes.
+
+---
+
+# 🚀 Roadmap
+
+## Próximas Mejoras
+
+* [ ] Integración con SonarQube
+* [ ] Escaneo de secretos (Gitleaks)
+* [ ] Integración con Slack
+* [ ] Integración con Microsoft Teams
+* [ ] Almacenamiento de reportes en S3
+* [ ] Pipeline parametrizado
+* [ ] Multibranch Pipelines
+
+---
+
+# 🤝 Contribuciones
+
+Las contribuciones son bienvenidas.
+
+Si encuentras oportunidades de mejora, abre un Pull Request o un Issue.
+
+---
+
+# 📄 Licencia
+
+MIT License
+
+---
+
+# 👨‍💻 Autor
+
+<div align="center">
+
+## Herberth Daniel Barrios
+
+DevOps Engineer Student • DevSecOps Practitioner
+
+![GitHub](https://img.shields.io/badge/GitHub-Danielito2252-181717?style=for-the-badge\&logo=github)
+
+</div>
+
+---
+
+<div align="center">
+
+### 💡 "El mejor código es el que nunca llega a producción con vulnerabilidades críticas."
+
+</div>
