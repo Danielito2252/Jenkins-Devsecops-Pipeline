@@ -155,7 +155,7 @@ pipeline {
     post {
         always {
             echo 'Limpiando el espacio de trabajo...'
-            cleanWs()
+           // cleanWs()
         }
         success {
             echo '¡Pipeline ejecutado con éxito! Estado: SEGURO.'
