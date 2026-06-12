@@ -48,11 +48,11 @@ pipeline {
                                 "Type": "npm",
                                 "Vulnerabilities": [
                                     {
-                                        "VulnerabilityID": "CVE-2026-9999",
+                                        "VulnerabilityID": "CVE-2026-9999",  //CVE-2026-1234 cambiar para simular una vulnerabilidad low
                                         "PkgName": "express",
                                         "InstalledVersion": "4.17.1",
                                         "FixedVersion": "4.17.2",
-                                        "Severity": "CRITICAL", // Aquí simulamos una vulnerabilidad crítica realista 
+                                        "Severity": "LOW", // Aquí simulamos una vulnerabilidad de baja gravedad, si queremos una alta HIGH y una crítica CRITICAL
                                         "Title": "Remote Code Execution (RCE) via malicious payload"
                                     }
                                 ]
@@ -116,7 +116,7 @@ pipeline {
                 echo 'Descargando suite de pruebas desde el repositorio estrella de Cypress...'
                 dir('cypress-tests') {
                     // Reemplaza esto con tu URL real si lo deseas
-                    git url: 'https://github.com/Danielito2252/cypress-e2e-suite', branch: 'develop' // Simulación: Si el repositorio no es accesible, creamos una estructura de archivos para que el pipeline avance
+                    git url: 'https://github.com/Danielito2252/cypress-e2e-suite', branch: 'main' // Simulación: Si el repositorio no es accesible, creamos una estructura de archivos para que el pipeline avance
                     // Si el repositorio no es accesible, creamos una estructura de archivos para que el pipeline avance
                 }
             }
