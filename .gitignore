@@ -1,0 +1,7 @@
+# Reportes generados por el pipeline
+trivy-report.json
+zap-report.html
+
+# Carpetas temporales de descargas
+cypress-tests/
+node_modules/
