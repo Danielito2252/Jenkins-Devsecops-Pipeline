@@ -291,12 +291,26 @@ Consulta el archivo **LICENSE** para más información.
 
 <div align="center">
 
-# 👨‍💻 Autor
+## 👨‍💻 Desarrollado por
 
-### Danielito2252
+# Herberth Barrios
 
-**DevOps Engineer Student • DevSecOps Practitioner**
+### DevOps Engineer | DevSecOps Practitioner | QA Automation Enthusiast
 
-*"El mejor código es el que nunca llega a producción con vulnerabilidades críticas."*
+<br>
+
+[![GitHub](https://img.shields.io/badge/GitHub-Danielito2252-181717?style=for-the-badge\&logo=github)](https://github.com/Danielito2252)
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Herberth%20Barrios-0A66C2?style=for-the-badge\&logo=linkedin)](https://www.linkedin.com/in/herberth-barrios-299236261/)
 
 </div>
+
+---
+
+> *"El mejor código es el que nunca llega a producción con vulnerabilidades críticas."*
+
+> *"La seguridad no es una fase. Es un Requisito."*
+
+
+
+
